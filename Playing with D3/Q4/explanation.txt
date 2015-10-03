@@ -1,0 +1,3 @@
+c.iii) Square root scaling works better because the number of goals ranges from 0 to 174 and when we scale it linearly the smallest nodes become almost invisible compared to big nodes.
+
+g.ii) Increased the linkDistance to 150. Reduced the font size to 9. Made the stroke-width of the links smaller. Changed charge to -300

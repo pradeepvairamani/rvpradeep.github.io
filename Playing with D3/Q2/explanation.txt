@@ -1,0 +1,1 @@
+The glucose values are higher for lower keys than for higher keys in both day and hourly heatmaps. Also 4-12 seem to be hours when the glucose levels are the maximum. 

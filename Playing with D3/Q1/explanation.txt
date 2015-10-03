@@ -1,0 +1,3 @@
+Q1.a-ii) The petals plot divides the classes in a more distint fashion. The setosa class is clustered close to the origin, the versicolor is in the middle and the virginica is farthest from the origin.
+
+c) Of these two scales, sqrt is better because the log scales compresses the graph due to which the points tend to overlap. The linear scale is the best for our data as it distributes points evenly

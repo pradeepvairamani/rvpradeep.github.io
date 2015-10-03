@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+.node {
+  stroke-width: 1.5px;
+  stroke: #fff;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+.node text {
+  pointer-events: none;
+  font: 9px sans-serif;
+  stroke: black;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: .5;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+</style>
+
+<head>
+<title>Who Played With Whom</title>
+</head>
+
+<body>
+<script src="../lib/d3/d3.v3.min.js"></script>
+<script src="../lib/d3/d3.tip.v0.6.3.js"></script>
+<script>
+
+//Size of region to render on
+var width = window.innerWidth,
+    height = window.innerHeight;
+
+//D3 force directed layout
+//Try playing with the charge and link distance
+var force = d3.layout.force()
+    .charge(-300)
+    .linkDistance(150)
+    .size([width, height]);
+
+//Add our canvas
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+//Select the data ;)
+d3.json("afc.json", function(error, graph) {
+
+  var cValue = function(d) { return d.position;},
+     color = d3.scale.category20();
+
+  var gScale = d3.scale.linear().domain([0, 40]).range([5, 40]);
+
+  force
+      .nodes(graph.nodes)
+      .links(graph.links)
+      .start();
+
+  tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .html(function(d) {return "<strong>Name:</strong> <span style='color:white'>" + d.name + "</span><strong><br>Position:</strong> <span style='color:white'>" + d.position + "</span><strong><br>Appearances:</strong> <span style='color:white'>" + d.appearances + "</span>";});
+  svg.call(tip)
+
+//Add the links
+  var link = svg.selectAll(".link")
+      .data(graph.links)
+      .enter().append("line")
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+  var node = svg.selectAll(".node")
+      .data(graph.nodes)
+    .enter().append("g")
+      .attr("class", "node")
+      .call(force.drag);
+
+    node.append("circle")
+  .attr("r",function(d) {return gScale(Math.sqrt(d.goals));})
+  .style("fill", function(d) { return color(cValue(d));}) 
+  .on("dblclick",function(d){d.fixed = !d.fixed; if (d.fixed){d3.select(this).style("stroke", "black");} else {d3.select(this).style("stroke", "white")}})
+  .on('mouseover', tip.show)
+  .on('mouseout', tip.hide)
+
+//Add the nodes
+  // var node = svg.selectAll(".node")
+  //     .data(graph.nodes)
+  //     .enter().append("g").append("circle")
+  //     .attr("class", "node")
+  //     .attr("r", function(d) {return gScale(Math.sqrt(d.goals));})
+  //     .style("fill", function(d) { return color(cValue(d));}) 
+  //     .text(function(d){ return d.name;})
+  //     .on("dblclick",function(d){d.fixed = !d.fixed; if (d.fixed){d3.select(this).style("stroke", "black");} else {d3.select(this).style("stroke", "white")}})
+  //     .on('mouseover', tip.show)
+  //     .on('mouseout', tip.hide)
+  //     .call(force.drag);
+
+  //   node.append("text")
+  //     .attr("dx", 12)
+  //     .attr("dy", ".35em")
+  //     .text(function(d) { return d.name });
+  // node.append("title")
+  //     .filter(function(d) { return d.appearances > 250 })
+  //     .text(function(d) { return d.name; });
+
+
+
+
+    node.append("text")
+      .attr("dx", 12)
+      .attr("dy", ".35em")
+      .filter(function(d) { return d.appearances > 250 })
+      .text(function(d) { return d.name });
+
+
+//Update stuff for animation:
+//   This takes the physics simulation for the force directed graph and
+//   sets the location of the nodes and edges to the new positions
+  force.on("tick", function() {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+  });
+});
+
+</script>

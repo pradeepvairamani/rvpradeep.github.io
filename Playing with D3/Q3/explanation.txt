@@ -1,0 +1,1 @@
+Sorted nodes by APPEARANCES using python itemgetter. Made an array of dictionary for both nodes and links and added them to one big dictionary which was converted and written to afc.json using json.dumps

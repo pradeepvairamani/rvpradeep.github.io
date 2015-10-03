@@ -1,0 +1,2 @@
+Graph shows the distribution of refugess in the year 2014
+Used the chord chart as it gives a good visual representation of the percentage of flows from one node to the rest. Also, the capability to add information on hover was perfect for the given usecase.

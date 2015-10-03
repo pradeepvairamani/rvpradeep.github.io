@@ -1,0 +1,79 @@
+{
+  "from": [
+    "Afghanistan",
+    "Eritrea",
+    "Iran",
+    "Iraq",
+    "Russian Federation",
+    "Somalia",
+    "Serbia & Kosovo",
+    "Syrian Arab Rep."
+  ],
+  "paths": [
+    {
+      "label": "Germany",
+      "values": [
+        27814,
+        4716,
+        18814,
+        41167,
+        4608,
+        4205,
+        9294,
+        40994
+      ]
+    },
+    {
+      "label": "France",
+      "values": [
+        3838,
+        1671,
+        2359,
+        2991,
+        13644,
+        1896,
+        12119,
+        2882
+      ]
+    },
+    {
+      "label": "UnitedKingdom",
+      "values": [
+        9039,
+        11583,
+        11510,
+        2951,
+        575,
+        8509,
+        408,
+        4572
+      ]
+    },
+    {
+      "label": "Sweden",
+      "values": [
+        12090,
+        14107,
+        4152,
+        24184,
+        2014,
+        21189,
+        3082,
+        34285
+      ]
+    },
+    {
+      "label": "Denmark",
+      "values": [
+        2130,
+        319,
+        1912,
+        967,
+        1051,
+        1134,
+        468,
+        7253
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+Q5.b) Removed all the columns with empty values. Also removed the year column since all the rows will have the same year (2005). Instead specified the year in the name of the table.
+
+5c) Year is populated on the X-axis and the countries are given colors. The distribution according to age is plotted on the area diagram as it gives a sense of the relative distribution. On hover, we can see the value represented by a particular slot in the area diagram.
